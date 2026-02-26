@@ -1,0 +1,34 @@
+<div id="create_post_container">
+  <form [formGroup]="postForm" (ngSubmit)="createPost()" class="post-form">
+    <h1>Create Post</h1>
+
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" placeholder="Enter title" formControlName="title">
+      <div class="error" *ngIf="f.title.touched && f.title.invalid">
+        Title is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Content</label>
+      <textarea placeholder="Enter content" formControlName="content"></textarea>
+      <div class="error" *ngIf="f.content.touched && f.content.invalid">
+        Content is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Post Image URL</label>
+      <input type="text" placeholder="Enter image URL" formControlName="postImage">
+      <!-- <img *ngIf="imagePreview" [src]="imagePreview" class="preview"> -->
+    </div>
+
+    <!-- <div *ngIf="serverError" class="server-error">{{ serverError }}</div> -->
+
+    <button type="submit" >
+      <!-- {{ submitting ? 'Submitting...' : 'Submit' }} -->
+        Submit
+    </button>
+  </form>
+</div>

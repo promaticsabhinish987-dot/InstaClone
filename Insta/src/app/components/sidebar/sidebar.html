@@ -1,0 +1,107 @@
+<div id="main_side_bar">
+
+   @if(isOpen){
+   <div>
+      <span (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="18" y1="6" x2="6" y2="18" />
+         </svg>
+      </span>
+   </div>
+   }
+
+   <div class="insta_logo">
+      <img
+         src="https://i0.wp.com/www.dafontfree.io/wp-content/uploads/2020/12/instagram-new.png?resize=1100%2C750&ssl=1"
+         alt="">
+   </div>
+   <div class="side_bar_icons">
+      <div routerLink="/home" (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 10.5L12 3l9 7.5" />
+            <path d="M5 9.5V21h14V9.5" />
+         </svg>
+         <span>Home</span>
+      </div>
+      <div routerLink="/discover" (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+         </svg>
+         <span>Search</span>
+      </div>
+      <div>
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9" />
+            <polygon points="10 14 14 10 13 15 9 13" />
+         </svg>
+         <span>Explore</span>
+      </div>
+      <div  routerLink="/posts" (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="4" />
+            <line x1="3" y1="9" x2="21" y2="9" />
+            <line x1="9" y1="3" x2="9" y2="9" />
+            <line x1="15" y1="3" x2="15" y2="9" />
+         </svg> <span>Reels</span>
+      </div>
+      <div routerLink="/message" (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+         </svg>
+         <span>Messages</span>
+      </div>
+      <div>
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+               d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+         </svg>
+         <span>Notifications</span>
+      </div>
+
+      <div routerLink="/createPost" (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="4" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+         </svg>
+         <span>Create</span>
+      </div>
+
+      <div  routerLink="/about" (click)="closeSidebar()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4 4-7 8-7s8 3 8 7" />
+         </svg>
+         <span>Profile</span>
+      </div>
+
+      <div>
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+         </svg>
+         <span>More</span>
+      </div>
+       <div routerLink="/login" (click)="closeSidebar()">
+         
+         <span >Login</span>
+    
+      </div>
+       <div routerLink="/register" (click)="closeSidebar()">
+         
+         <span>Register</span>
+    
+      </div>
+       <div (click)="logout()" (click)="closeSidebar()">
+         
+         <span>Logout</span>
+    
+      </div>
+
+      
+   </div>
+</div>

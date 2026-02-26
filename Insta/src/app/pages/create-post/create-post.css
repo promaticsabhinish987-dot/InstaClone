@@ -1,0 +1,113 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  /* background-color: #f5f5f5; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#create_post_container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); */
+  transition: transform 0.2s ease-in-out;
+   box-shadow:  -1px -1px 15px 4px rgb(0 0 0 / 32%);
+}
+
+.post-form:hover {
+  transform: translateY(-2px);
+}
+
+.post-form h1 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  outline: none;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button {
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+.error {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.server-error {
+  color: #b00020;
+  text-align: center;
+  font-size: 14px;
+}
+
+.preview {
+  margin-top: 10px;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  object-fit: contain;
+}

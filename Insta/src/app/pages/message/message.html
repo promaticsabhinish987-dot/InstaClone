@@ -1,0 +1,104 @@
+<div id="message_container">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <h3 class="sidebar-title">Chats</h3>
+
+    <ul class="user-list">
+
+      @for (user of followingList; track user._id) {
+        <li 
+          class="user-item"
+          [class.active]="selectedUser?._id === user._id"
+          (click)="selectUser(user)"
+        >
+          <div class="avatar">
+            <img 
+              [src]="user?.avtar || defaultPostImage" 
+              (error)="onImageError($event)" 
+              alt="Profile Image"
+            />
+            <span class="status online"></span>
+          </div>
+
+          <div class="user-info">
+            <h4>{{ user?.name }}</h4>
+            <p>{{ user?.email }}</p>
+          </div>
+        </li>
+      }
+
+    </ul>
+  </aside>
+
+  <!-- ================= CHAT SECTION ================= -->
+  <div class="chat-container">
+
+    <!-- Selected User Header -->
+    <div class="selecteduser" *ngIf="selectedUser">
+
+      <div class="avatar">
+        <img 
+          [src]="selectedUser?.avtar || defaultPostImage" 
+          (error)="onImageError($event)" 
+          alt="Profile Image"
+        />
+        <span class="status online"></span>
+      </div>
+
+      <div class="user-info">
+        <h4>{{ selectedUser?.name }}</h4>
+        <p>{{ selectedUser?.email }}</p>
+      </div>
+
+    </div>
+
+    <!-- Messages -->
+    <div class="messages">
+
+      <div 
+        *ngFor="let msg of messages; trackBy: trackByMessage"
+        [ngClass]="{
+          'my-message': msg.sender === currentUserId,
+          'their-message': msg.sender !== currentUserId
+        }"
+      >
+        {{ msg.text }}
+        <div> <small>{{msg?.createdAt | timeAgo}}</small></div>
+      </div>
+
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="typing-indicator" *ngIf="typingUser">
+      {{ selectedUser?.name }} is typing...
+    </div>
+
+    <!-- Current User Info -->
+    <p class="current-user">
+      Logged in as: {{ currentUserProfile?.name }}
+    </p>
+
+    <!-- Input -->
+    <div class="input-box">
+
+      <input
+        type="text"
+        [(ngModel)]="newMessage"
+        (input)="onTyping()"
+        placeholder="Type a message..."
+        [disabled]="!selectedUser"
+      />
+
+      <button 
+        (click)="send()" 
+        [disabled]="!selectedUser"
+      >
+        Send
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

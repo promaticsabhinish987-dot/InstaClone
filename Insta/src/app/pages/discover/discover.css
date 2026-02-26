@@ -1,0 +1,151 @@
+/* Root container */
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  /* background-color: #f5f7fa; */
+  box-sizing: border-box;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-y: auto;
+}
+
+/* Discover Wrapper */
+#discover_container {
+  width: 100%;
+  max-width: 900px;   /* Increased for desktop */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title */
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #1f2937;
+}
+
+/* Search */
+.search-wrapper {
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* User List */
+.user-list {
+  display: grid;
+  gap: 16px;
+  /* overflow-y: auto; */
+}
+
+/* Desktop grid layout */
+@media (min-width: 768px) {
+  .user-list {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 900px) {
+  #discover_container {
+    max-width: 900px;
+  }
+
+  .user-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card */
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  justify-content: space-between;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Avatar */
+.user-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Info */
+.user-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+
+/* follow button */
+
+.user-card button {
+  margin-top: 14px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid #6366f1;
+  background-color: transparent;
+  color: #6366f1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+}
+
+.user-card button:hover {
+  background-color: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 6px 15px rgba(99, 102, 241, 0.25);
+  transform: translateY(-1px);
+}
+
+.user-card button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.user-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}

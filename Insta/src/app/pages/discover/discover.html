@@ -1,0 +1,39 @@
+<div class="discover_container">
+
+    <h1 class="page-title">Discover</h1>
+
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+      <input 
+      [(ngModel)]="searchText"
+        type="text" 
+        placeholder="Search by name..." 
+        class="search-input"
+        (change)="searchUser()"
+      />
+    </div>
+
+    <!-- User List -->
+    <div class="user-list">
+
+      <!-- User Card -->
+       @for(user of userList?.data;track user._id){
+      <div class="user-card">
+         <img [src]="user?.avtar || defaultPostImage" (error)="onImageError($event)" alt="User Image" />
+        <div class="user-info" [routerLink]="['/profile', user._id]">
+          <h3>{{user?.name}}</h3>
+          <p>{{user?.email}}</p>
+        
+          
+        </div>
+          <button (click)="toggleFollow(user?._id)">{{user?.isFollowing?"Following":"Follow"}}</button>
+      </div>
+       }@empty{
+         <h1>No user</h1>
+       }
+
+
+
+    </div>
+
+  </div>

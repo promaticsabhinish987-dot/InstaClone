@@ -1,0 +1,125 @@
+<div id="posts_container">
+  @for(post of postList;track post){
+<div>
+   <div>
+ <div class="postHeader" [routerLink]="['/profile', post?.author?._id]" >
+
+   <div class="avtar">
+      <img src={{post?.postImage}} alt="avtar">
+   </div>
+   <div class="userName">
+   <span><h3>{{post?.author?.name}}</h3></span>
+   <small>{{ post?.createdAt | timeAgo }}</small>
+   </div>
+   <div class="more">
+  ...
+   </div>
+ </div>
+ <div class="postbody">
+   <div class="postTitle">
+ <h3>{{post?.title}}</h3>
+   </div>
+   <div class="postDescription">
+    <p>{{post?.content}}</p>
+   </div>
+   <div class="postImage">
+      <img  src={{post?.postImage}} alt="postImage">
+   </div>
+ </div>
+ <div class="postFotter">
+  <div class="like" (click)="toggleLike(post?._id)">
+    @if(post?.isLiked){
+      <svg xmlns="http://www.w3.org/2000/svg" color="red"  width="24" height="24" viewBox="0 0 24 24" fill="red" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20.8 4.6c-1.9-1.9-5-1.9-6.9 0L12 6.5l-1.9-1.9c-1.9-1.9-5-1.9-6.9 0s-1.9 5 0 6.9L12 21l8.8-9.5c1.9-1.9 1.9-5 0-6.9z"/>
+</svg>
+    }
+      @if(!post?.isLiked){
+<svg xmlns="http://www.w3.org/2000/svg" color="black" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20.8 4.6c-1.9-1.9-5-1.9-6.9 0L12 6.5l-1.9-1.9c-1.9-1.9-5-1.9-6.9 0s-1.9 5 0 6.9L12 21l8.8-9.5c1.9-1.9 1.9-5 0-6.9z"/>
+</svg>
+    }
+
+<span>{{post?.likeCount}}</span>
+  </div>
+<div class="comment open-btn" (click)="openPopup(post?._id)">
+  <svg xmlns="http://www.w3.org/2000/svg"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+<span>{{post?.commentCount}}</span>
+  </div>
+    <div class="share">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14 3l7 7-7 7"/>
+  <path d="M21 10H9a6 6 0 0 0-6 6v2"/>
+</svg>
+  </div>
+ </div>
+
+</div>
+</div>
+  }@empty{
+    <h1>No post available</h1>
+  }
+
+
+
+</div>
+
+<!-- Popup -->
+@if (isPopupOpen) {
+
+<div class="overlay" (click)="closePopup()">
+
+  <div class="popup" (click)="$event.stopPropagation()">
+
+    <!-- HEADER -->
+    <div class="popup-header">
+      <div class="header-left">
+        <h3>Comments <span>{{comments?.comments?.length}}</span></h3>
+        <p class="post-owner">{{comments?.profile?.name}}</p>
+      </div>
+
+      <button class="close-btn" (click)="closePopup()">✕</button>
+    </div>
+
+    <!-- COMMENT LIST -->
+    <div class="popup-body">
+      <div class="comments">
+        @for(comment of comments?.comments ;track comment._id){
+          <div class="comment-item">
+            <div class="comment-content">
+              <div class="comment-header">
+                <span class="author">{{comment?.author?.name}}</span>
+                <span class="time">{{ comment?.createdAt | timeAgo }}</span>
+                 <!-- DELETE ICON -->
+            <button class="delete-btn" (click)="deleteComment(comment._id)" title="Delete Comment">
+              <!-- Trash SVG -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d11a2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6l-1 14H6L5 6"></path>
+                <path d="M10 11v6"></path>
+                <path d="M14 11v6"></path>
+                <path d="M9 6V4h6v2"></path>
+              </svg>
+            </button>
+              </div>
+              <p class="text">{{comment?.content}}</p>
+            </div>
+          </div>
+        }@empty{
+          <p class="no-comment">No comment yet</p>
+        }
+      </div>
+    </div>
+
+    <!-- INPUT SECTION -->
+    <!-- <div > -->
+<form  [formGroup]="postForm" (ngSubmit)="createCommment()"  class="comment-input" >
+        <input type="text" formControlName="content" placeholder="Write a comment..." />
+      <button>Post</button>
+</form>
+    <!-- </div> -->
+
+  </div>
+</div>
+}

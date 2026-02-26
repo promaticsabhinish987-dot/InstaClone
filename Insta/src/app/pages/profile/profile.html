@@ -1,0 +1,86 @@
+<div id="about_container">
+  <div class="profile-card">
+
+    <div class="profile-header">
+      <div class="profile-image">
+        <img [src]="about?.avtar || defaultPostImage" (error)="onImageError($event)" alt="Profile Image" />
+      </div>
+
+      <div class="profile-basic-info">
+        <h1 class="profile-name">{{about?.name}}</h1>
+        <p class="profile-email">{{about?.email}}</p>
+        <div><button>Followers {{about?.followersCount}}</button> <button>Following {{about?.followingCount}}</button></div>
+      </div>
+    </div>
+
+    <div class="profile-divider"></div>
+
+    <div class="profile-bio-section">
+      <h2>Bio</h2>
+
+      <p>
+        {{about?.bio}}
+      </p>
+    </div>
+
+  </div>
+  <!-- USER POSTS -->
+  <div class="user-posts-section">
+
+    <h2 class="posts-heading">Posts Created</h2>
+
+    <div class="posts-grid">
+
+      @for(post of postList;track post._id){
+        
+      <!-- Post Card -->
+      <div class="post-card">
+        
+        <div class="post-image">
+              <div class="post-meta">
+      <span class="post-date">
+        {{ post?.createdAt | timeAgo}}
+      </span>
+    </div>
+          <img [src]="post?.postImage || defaultPostImage" (error)="onImageError($event)" alt="Post Image" />
+        </div>
+
+        <div class="post-content">
+           <!-- Created Date -->
+
+
+          <h3 class="post-title">{{post?.title}}</h3>
+          <p class="post-text">
+            {{post?.content}}
+          </p>
+
+         
+        </div>
+         <div class="post-stats">
+            
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" color="" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M20.8 4.6c-1.9-1.9-5-1.9-6.9 0L12 6.5l-1.9-1.9c-1.9-1.9-5-1.9-6.9 0s-1.9 5 0 6.9L12 21l8.8-9.5c1.9-1.9 1.9-5 0-6.9z" />
+              </svg>
+              {{post?.likeCount}}</span>
+              
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+              </svg>
+              {{post?.commentCount}}</span>
+
+              <!-- <span (click)="deletePost(post?._id)">
+                <svg xmlns="http://www.w3.org/2000/svg" color="red" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+              </span> -->
+          </div>
+      </div>
+      
+      }
+
+    </div>
+  </div>
+</div>

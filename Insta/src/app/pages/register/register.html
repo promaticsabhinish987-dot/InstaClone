@@ -1,0 +1,9 @@
+<div id="register_container">
+<form [formGroup]="postForm" (ngSubmit)="registerUser()">
+<input type="text" placeholder="Enter your name" formControlName="name"/>
+<input type="email" placeholder="Enter your mail" formControlName="email" />
+<input type="password" placeholder="Enter your password" formControlName="password"/>
+<button>Register</button>
+</form>
+
+</div>

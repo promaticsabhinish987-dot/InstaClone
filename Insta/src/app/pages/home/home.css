@@ -1,0 +1,10 @@
+#main_home_container{
+
+}
+
+:host{
+   width: 80%;
+   height: 100%;
+   /* background-color: goldenrod; */
+   flex: 1;
+}

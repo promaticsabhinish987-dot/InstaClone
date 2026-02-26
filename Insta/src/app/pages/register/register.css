@@ -1,0 +1,95 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  /* background: linear-gradient(135deg, #eef2f7, #dbe4f3); */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Center container */
+#register_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card (Same as login) */
+#register_container form {
+  width: 100%;
+  max-width: 380px;              /* same width */
+  background: #ffffff;
+  padding: 40px 32px;            /* same padding */
+  border-radius: 16px;           /* same radius */
+ box-shadow:  -1px -1px 15px 4px rgb(0 0 0 / 32%);
+    display: flex;
+  flex-direction: column;
+  gap: 18px;                     /* same spacing scale */
+}
+
+/* Heading */
+#register_container form h2 {
+  margin: 0 0 10px;
+  text-align: center;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Inputs */
+#register_container input {
+  width: 100%;
+  padding: 14px 16px;            /* same input padding */
+  border-radius: 10px;           /* same rounding */
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.25s ease;
+  background: #f9fafb;
+}
+
+/* Focus state (same blue as login) */
+#register_container input:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Button (same primary color) */
+#register_container button {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+#register_container button:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+}
+
+/* Active */
+#register_container button:active {
+  transform: translateY(0);
+}
+
+/* Disabled */
+#register_container button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #register_container form {
+    margin: 0 20px;
+    padding: 30px 20px;
+  }
+}

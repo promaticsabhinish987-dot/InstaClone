@@ -1,0 +1,110 @@
+
+
+
+
+:host{
+   width: 20%;
+   height: 100%;
+   /* background-color: rgb(95, 72, 13); */
+   border-right:1px solid #dbdbdb ;
+   display: block;
+   /* background-color: grey; */
+   padding: .5rem;
+   overflow-y: auto;
+}
+
+.insta_logo{
+   width: 100%;
+   display: flex;
+  justify-content: left;
+}
+
+
+.insta_logo img{
+   width: 60%;
+}
+
+
+
+
+
+/* Desktop */
+@media (min-width: 768px) {
+  :host {
+    position: relative;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+
+  :host {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 999;
+    width: 30%;
+    background-color: white;
+    
+  }
+  .insta_logo{
+
+  justify-content: center;
+}
+
+ .insta_logo img{
+ width: 100%;
+}
+
+
+
+  :host(.open) {
+    transform: translateX(0);
+  }
+
+}
+
+
+/* svg */
+svg {
+  width: 24px;
+  height: 24px;
+  stroke: #262626
+}
+
+#main_side_bar svg {
+stroke: #262626
+}
+
+
+
+.side_bar_icons{
+   /* border: 1px solid; */
+   height: 100%;
+   padding-left: 1rem;
+}
+
+.side_bar_icons div{
+padding-top: 1rem;
+
+display: flex;
+align-items: center;
+gap: .5rem;
+
+}
+
+
+.side_bar_icons div:hover{
+  cursor: pointer;
+   /* background-color  : #cc2b8c9c; */
+   border-radius: .5rem;
+   /* color: white; */
+   /* stroke: white; */
+ box-shadow: inset 0px 0px 6px 0px grey;
+
+}
+
