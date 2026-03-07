@@ -109,6 +109,8 @@
   flex-direction: column;
   padding: 15px;
   background: #f9fafb;
+  /* background-image: url("https://t4.ftcdn.net/jpg/17/30/90/37/360_F_1730903730_xSuZfZlMPbG1PoCdZ75pEfW1k963GNu4.jpg"); */
+  background-size:contain;
 }
 
 .messages {
@@ -124,20 +126,34 @@
   background-color: #dcf8c6;
   margin: 5px;
   padding: 8px 14px;
-  border-radius: 18px;
+  border-radius:18px 0 18px 18px;
   max-width: 60%;
   font-size: 14px;
+ border: 1px solid;
+}
+
+.my-message small{
+color: #1e66cc;
+font-size: .7rem;
 }
 
 .their-message {
   align-self: flex-start;
-  background-color: #ffffff;
+  /* background-color: #e7d9d9ed; */
+  background-color: white;
   margin: 5px;
   padding: 8px 14px;
-  border-radius: 18px;
   max-width: 60%;
   font-size: 14px;
   border: 1px solid #e5e7eb;
+   border: 1px solid;
+     border-radius:0 18px 18px 18px;
+}
+
+
+.their-message  small{
+color: #ff00c6;
+font-size: .7rem;
 }
 
 /* Typing */
@@ -190,4 +206,35 @@
   top: 0;
   left: 0;
   right: 0;
+  background-color: white;
+}
+
+/* image preview  */
+.preview-container {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.preview-image {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.preview-container button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.messages img{
+width: 300px;
 }

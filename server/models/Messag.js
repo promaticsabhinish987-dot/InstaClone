@@ -15,6 +15,11 @@ const messageSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  imageUrl:{
+   type:String,
+   trim:true,
+   default:""
+  },
   createdAt: {
     type: Date,
     default: Date.now

@@ -5,6 +5,7 @@ import { OnInit,ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-posts',
@@ -20,6 +21,8 @@ export class Posts implements OnInit{
   postId:string=""
   comments:any=[]
   postForm!: any; // definite assignment
+  imageURL:any;
+  // defaultPostImage=""
 constructor(private http:HttpService, private fb:FormBuilder,private cdr:ChangeDetectorRef){}
 
 
@@ -30,6 +33,7 @@ ngOnInit() {
   });
 
   this.getAllPost();
+  this.imageURL=environment.image_URL;
 }
 
 

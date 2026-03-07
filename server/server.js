@@ -6,6 +6,11 @@ const express=require("express")
 const messageSocket = require("./sockets/message.socket");
 const { Server } = require("socket.io")
 const socketAuthMiddleware=require("./middleware/ socketAuthMiddleware")
+const storage = require("./config/storage");
+
+(async () => {
+  await storage.init();
+})();
 
 dbConnect();
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../../services/http-service';
 import { TimeAgoPipe } from '../../shared/time-ago-pipe';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,7 @@ export class Profile implements OnInit {
   about: any = null;
   postList: any[] = [];
   userId!: string;
+  imageURL:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +30,7 @@ export class Profile implements OnInit {
       this.userId = params.get('userId')!;
       this.loadUser(this.userId);
     });
+    this.imageURL=environment.image_URL;
   }
 
   loadUser(id: string) {

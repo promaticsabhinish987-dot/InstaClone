@@ -44,7 +44,7 @@
         {{ post?.createdAt | timeAgo}}
       </span>
     </div>
-          <img [src]="post?.postImage || defaultPostImage" (error)="onImageError($event)" alt="Post Image" />
+          <img [src]="post?.postImage ? imageURL + post.postImage : defaultPostImage" (error)="onImageError($event)" alt="Post Image" />
         </div>
 
         <div class="post-content">

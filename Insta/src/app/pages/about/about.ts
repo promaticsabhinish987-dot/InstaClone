@@ -4,6 +4,7 @@ import { TimeAgoPipe } from '../../shared/time-ago-pipe';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-about',
@@ -20,6 +21,7 @@ postList:any=[]
 isFollowPopupOpen:boolean=false;
 updateForm!:any;
 followList:any=[];
+imageURL:any
 
 ngOnInit(){
   this.getUserProfile()
@@ -28,7 +30,10 @@ ngOnInit(){
   name:[""],
   bio:["",Validators.maxLength(150)],
   avtar:[""]
+
   })
+  this.imageURL=environment.image_URL;
+
 }
 
 getUserProfile(){

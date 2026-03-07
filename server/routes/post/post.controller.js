@@ -1,17 +1,29 @@
 const Post = require("./../../models/Post")
 const Comment = require("./../../models/Comment")
 const Like = require("./../../models/Like")
+const storage =require("../../config/storage")
+
 const createPost = async (req, res) => {
+   
    try {
-      const { title, content ,postImage} = req.body;
+      const { title, content } = req.body;
       if (!title || !content) {
          return res.status(400).json({ message: "Title and Content both are required" })
       }
 
+      if (!req.file) {
+         return res.status(400).json({
+            message: "Image is required"
+         });
+      }
+
+        const result = await storage.upload(req.file);
+        console.log(result)
+
       const post = await Post.create({
          title,
          content,
-         postImage,
+         postImage:result.key,
          author: req.user._id
       })
 
@@ -38,13 +50,11 @@ const deletePost = async (req, res) => {
       if(!isValidPost.author.equals(req.user._id)){
  return res.status(401).json({message:"You cant delete others post"})
       }
+
        const post = await Post.findByIdAndDelete(postId);
-
-
-     
-
-
-
+       console.log("post image url "+post.postImage)
+            const imageDeleted = await storage.delete(post.postImage)
+            console.log("deleted post " +imageDeleted)
       return res.status(200).json({ message: "Post deleted successfully" })
 
 

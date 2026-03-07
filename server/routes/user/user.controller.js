@@ -37,21 +37,23 @@ console.log(emailAlreadyExist,"email exist")
 
 
 const login = async (req,res) => {
-   console.log(req.body)
    try{
      const {email,password}=req.body;
+     console.log(email,password)
      if(!email || !password){
       return res.status(400).json({message:"Email and password both are required"})
      }
 
      const isRegisterd=await User.findOne({email});
-
+console.log("isregistered",isRegisterd)
+console.log("running")
      if(!isRegisterd){
         return res.status(401).json({messge:"Invalid credentials"});
      }
 
     //verify password
     const isMatch=await bcrypt.compare(password,isRegisterd.passwordHash)
+    console.log("match",isMatch)
 
      if (!isMatch) {
       return res.status(401).json({

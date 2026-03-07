@@ -63,6 +63,9 @@
           'their-message': msg.sender !== currentUserId
         }"
       >
+      @if(msg?.imageUrl){
+<div><img src="{{imageURL}}{{msg.imageUrl}}"/></div>
+      }
         {{ msg.text }}
         <div> <small>{{msg?.createdAt | timeAgo}}</small></div>
       </div>
@@ -78,10 +81,21 @@
     <p class="current-user">
       Logged in as: {{ currentUserProfile?.name }}
     </p>
+<div *ngIf="imagePreview" class="preview-container">
 
+  <img [src]="imagePreview" class="preview-image" />
+
+  <button (click)="removeImage()">✕</button>
+
+</div>
     <!-- Input -->
     <div class="input-box">
-
+      <input 
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        
+      />
       <input
         type="text"
         [(ngModel)]="newMessage"

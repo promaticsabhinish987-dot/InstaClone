@@ -16,15 +16,14 @@
       <div class="error" *ngIf="f.content.touched && f.content.invalid">
         Content is required
       </div>
-    </div>
+      </div>
+      <div class="form-group">
+        <label>Post Image URL</label>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        <img *ngIf="imagePreview" [src]="imagePreview" class="preview" />
+      </div>
 
-    <div class="form-group">
-      <label>Post Image URL</label>
-      <input type="text" placeholder="Enter image URL" formControlName="postImage">
-      <!-- <img *ngIf="imagePreview" [src]="imagePreview" class="preview"> -->
-    </div>
-
-    <!-- <div *ngIf="serverError" class="server-error">{{ serverError }}</div> -->
+<!-- <div *ngIf="serverError" class="server-error">{{ serverError }}</div> -->
 
     <button type="submit" >
       <!-- {{ submitting ? 'Submitting...' : 'Submit' }} -->

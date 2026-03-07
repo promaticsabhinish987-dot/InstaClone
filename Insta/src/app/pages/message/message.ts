@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../services/http-service';
 import { TimeAgoPipe } from '../../shared/time-ago-pipe';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-message',
@@ -21,8 +22,10 @@ export class Message implements OnInit {
   conversations: { [key: string]: any[] } = {};
 
   newMessage: string = '';
+  selectedFile: File | null = null;
   chatUserId: string = '';
   currentUserId: string = '';
+  imageURL!:any;
 
   defaultPostImage =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdemRA_yMHey1Dsd-YMTidc9suCmdewkzGCQ&s';
@@ -32,6 +35,7 @@ export class Message implements OnInit {
   followingList: any[] = [];
   selectedUser: any = null;
   currentUserProfile: any = null;
+  imagePreview: string | null = null;
 
   constructor(
     private http: HttpService,
@@ -41,6 +45,7 @@ export class Message implements OnInit {
 
   ngOnInit(): void {
 
+    this.imageURL=environment.image_URL;
     this.getUserProfile();
 
     this.getFollowingList();
@@ -89,16 +94,100 @@ export class Message implements OnInit {
     });
   }
 
-  // 🔹 Send message
-  send() {
-    console.log(this.messages)
-    if (!this.newMessage.trim() || !this.chatUserId) return;
 
-    this.messageService.sendMessage(this.chatUserId, this.newMessage);
+onFileSelected(event: any) {
+  const file = event.target.files[0];
 
-    this.newMessage = '';
-    this.cdr.detectChanges();
+  if (!file) return;
+
+  this.selectedFile = file;
+
+  // create temporary preview URL
+  this.imagePreview = URL.createObjectURL(file);
+  console.log(this.imagePreview)
+}
+
+
+removeImage() {
+  if (this.imagePreview) {
+    URL.revokeObjectURL(this.imagePreview); // prevent memory leak
   }
+
+  this.selectedFile = null;
+  this.imagePreview = null;
+}
+
+send() {
+
+  const text = this.newMessage?.trim();
+
+  // Nothing to send
+  if (!text && !this.selectedFile) return;
+  if (!this.chatUserId) return;
+
+  // IMAGE MESSAGE
+  if (this.selectedFile) {
+
+    const formData = new FormData();
+    formData.append("msgImage", this.selectedFile);
+
+    this.http.uploadImage(formData).subscribe({
+      next: (res: any) => {
+console.log("image url ",res )
+
+
+        this.messageService.sendMessage({
+          receiverId: this.chatUserId,
+          text: text || "",
+          imageUrl: res.imageUrl
+        })
+
+
+        this.clearInput();
+      },
+
+      error: (err) => {
+        console.error("Upload failed:", err);
+      }
+    });
+
+    return;
+  }
+
+  // TEXT MESSAGE
+  this.messageService.sendMessage({
+    receiverId: this.chatUserId,
+    text: text
+  })
+  
+
+  this.clearInput();
+}
+
+clearInput() {
+  this.newMessage = "";
+
+  if (this.imagePreview) {
+    URL.revokeObjectURL(this.imagePreview);
+  }
+
+  this.selectedFile = null;
+  this.imagePreview = null;
+
+}
+
+
+  // 🔹 Send message
+  // send() {
+  //   console.log(this.messages)
+  //   if (!this.newMessage.trim() || !this.chatUserId) return;
+
+  //   this.messageService.sendMessage(this.chatUserId, this.newMessage);
+  //   console.log("message" , this.newMessage)
+
+  //   this.newMessage = '';
+  //   this.cdr.detectChanges();
+  // }
 
   onTyping() {
     if (!this.chatUserId) return;
@@ -156,12 +245,18 @@ export class Message implements OnInit {
   trackByMessage(index: number, msg: any) {
   return msg._id || index;
 }
+getAllMessagesWithUser(receiverId: string) {
+  this.http.getAllMessagesWithUser(receiverId).subscribe((data: any) => {
 
-getAllMessagesWithUser(receiverId:string){
-  this.http.getAllMessagesWithUser(receiverId).subscribe((data:any)=>{
-    console.log(data)
-    this.messages=data.data.reverse()
+    const history = data.data.reverse();
+
+    // Store in conversation map
+    this.conversations[receiverId] = history;
+
+    // Bind UI
+    this.messages = this.conversations[receiverId];
+
     this.cdr.detectChanges();
-  })
+  });
 }
 }

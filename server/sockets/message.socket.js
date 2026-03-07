@@ -12,10 +12,9 @@ console.log("connected",socket.user._id)
     socket.join(userRoom);
 
     // 2️⃣ Send Message Event
-    socket.on("sendMessage", async ({ receiverId, text }) => {
+    socket.on("sendMessage", async ({ receiverId, text,imageUrl }) => {
       try {
-         console.log(receiverId,text)
-
+         console.log(receiverId,text,imageUrl)
         const senderId = socket.user._id;
 
         // 🔐 SECURITY CHECK
@@ -38,6 +37,7 @@ console.log("connected",socket.user._id)
           sender: senderId,
           receiver: receiverId,
           text,
+          imageUrl,
           createdAt: new Date()
         });
 

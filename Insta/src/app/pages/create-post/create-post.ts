@@ -12,28 +12,66 @@ import { CommonModule } from '@angular/common';
 })
 export class CreatePost implements OnInit{
   postForm!:any
+  imagePreview: string | ArrayBuffer | null = null;
 constructor(private http:HttpService,private fb:FormBuilder){}
 ngOnInit(){
 this.postForm=this.fb.group({
 content:['',[Validators.required,Validators.maxLength(300)]],
 title:['',[Validators.required,Validators.maxLength(100)]],
-postImage:['',Validators.required]
+postImage:[null,Validators.required]
 })
 }
 
-createPost(){
+onFileChange(event: any) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Validate type
+  if (!file.type.startsWith('image/')) {
+    alert("Only images allowed");
+    return;
+  }
+
+  // Validate size (2MB example)
+  if (file.size > 2 * 1024 * 1024) {
+    alert("Max size 2MB");
+    return;
+  }
+
+  // Patch into reactive form
+  this.postForm.patchValue({
+    postImage: file
+  });
+
+  this.postForm.get('postImage')?.updateValueAndValidity();
+
+  // Generate preview
+  const reader = new FileReader();
+  reader.onload = () => {
+    this.imagePreview = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+createPost() {
+
   if (this.postForm.invalid) {
-      this.postForm.markAllAsTouched();
-      return;
-    }
-    this.http.createPost(this.postForm.value).subscribe((data:any)=>{
-      console.log(data)
-      this.postForm.setValue({
-        title:"",
-        content:"",
-        postImage:""
-      })
-    })
+    this.postForm.markAllAsTouched();
+    return;
+  }
+
+  const formData = new FormData();
+
+  formData.append('title', this.postForm.get('title')?.value);
+  formData.append('content', this.postForm.get('content')?.value);
+  formData.append('postImage', this.postForm.get('postImage')?.value);
+
+  this.http.createPost(formData).subscribe((data: any) => {
+    console.log(data);
+
+    this.postForm.reset();
+    this.imagePreview = null;
+  });
 }
 
   get f() {
